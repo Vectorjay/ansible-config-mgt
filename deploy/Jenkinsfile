@@ -49,7 +49,7 @@ pipeline {
     agent any
 
   stages {
-    stage('Builds') {
+    stage('Build') {
       steps {
         script {
           sh 'echo "Building Stage"'
