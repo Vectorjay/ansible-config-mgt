@@ -89,9 +89,10 @@
         }
       }
     }
-    stage('Clean up') 
+    stage('Clean up'){
       steps {
         cleanWs()
       }
     }
+  }
 }
