@@ -30,8 +30,8 @@ pipeline {
     stage('Run Ansible playbook') {
       steps {
         ansiblePlaybook(
-          become: true,
-          colorized: true,
+          become: false,
+          colorized: false,
           credentialsId: 'secon-key',
           disableHostKeyChecking: true,
           installation: 'ansible',
