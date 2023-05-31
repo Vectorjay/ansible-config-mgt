@@ -1,4 +1,4 @@
-
+---
 - name: Install and setup MySQL
   hosts: db
   become: true
@@ -20,8 +20,7 @@
   become: yes
 
   vars:
-    mysql_root_password: your_desired_root_password
-
+    mysql_root_password: mypass
   tasks:
     - name: Set root password
       mysql_user:
@@ -79,5 +78,3 @@
         host: localhost
         login_user: root
         login_password: "{{ mysql_root_password }}"
-
-
