@@ -32,8 +32,8 @@
         state: started
         enabled: true
 
-    - name: Deploy static website
-      copy:
-        src: index.html
-        dest: /var/www/html/
+    # - name: Deploy static website
+    #   copy:
+    #     src: index.html
+    #     dest: /var/www/html/
 
