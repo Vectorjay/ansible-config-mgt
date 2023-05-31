@@ -1,0 +1,44 @@
+---
+- name: Install and setup MySQL
+  hosts: db
+  become: true
+
+  tasks:
+    - name: Install MySQL server
+      yum:
+        name: mysql-server  # Replace with appropriate package name for your Linux distribution
+        state: present
+
+    - name: Start MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: true
+
+    - name: Secure MySQL installation
+      mysql_user:
+        name: root
+        password: admin  # Replace with your desired root password
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        host_all: true
+        check_implicit_admin: yes
+        check_implicit_admin_with_grants: yes
+        login_user: root
+        login_password: admin
+        login_host: localhost
+
+    - name: Create a database
+      mysql_db:
+        name: tooling
+        state: present
+        login_user: root
+        login_password: admin
+
+    - name: Create a MySQL user
+      mysql_user:
+        name: webaccess
+        password: mypass
+        priv: "*.*:ALL"
+        host: localhost
+        login_user: root
+        login_password: admin
