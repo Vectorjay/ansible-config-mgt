@@ -5,7 +5,7 @@
 
   tasks:
     - name: Install MySQL server
-      yum:
+      apt:
         name: mysql-server  # Replace with appropriate package name for your Linux distribution
         state: present
 
