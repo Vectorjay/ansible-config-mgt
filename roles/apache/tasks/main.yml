@@ -29,7 +29,7 @@
     - name: Start Apache service
       service:
         name: httpd  # Replace with appropriate service name for your Linux distribution
-        state: started
+        state: restart
         enabled: true
 
     # - name: Deploy static website
