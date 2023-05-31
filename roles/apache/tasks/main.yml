@@ -1,18 +1,39 @@
 ---
-- hosts: webservers 
-  become: True
+# - hosts: webservers 
+#   become: True
+#   tasks:
+#     - name: Install packages
+#       yum:
+#         name: "httpd"
+#         state: "present"
+#     - name: Start Apache server
+#       service:
+#         name: httpd
+#         state: started
+#         enabled: True
+#     - name: Deploy static website
+#       copy:
+#         src: index.html
+#         dest: /var/www/html/
+# ...
+- name: Install and start Apache
+  hosts: apache
+  become: true
+
   tasks:
-    - name: Install packages
+    - name: Install Apache
       yum:
-        name: "httpd"
-        state: "present"
-    - name: Start Apache server
+        name: httpd  # Replace with appropriate package name for your Linux distribution
+        state: present
+
+    - name: Start Apache service
       service:
-        name: httpd
+        name: httpd  # Replace with appropriate service name for your Linux distribution
         state: started
-        enabled: True
+        enabled: true
+
     - name: Deploy static website
       copy:
         src: index.html
         dest: /var/www/html/
-...
+

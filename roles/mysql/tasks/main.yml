@@ -1,26 +1,44 @@
 ---
-# Variable configuration.
-- ansible.builtin.include_tasks: variables.yml
+- name: Install and setup MySQL
+  hosts: db
+  become: true
 
-# Setup/install tasks.
-- ansible.builtin.include_tasks: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+  tasks:
+    - name: Install MySQL server
+      yum:
+        name: mysql-server  # Replace with appropriate package name for your Linux distribution
+        state: present
 
-- ansible.builtin.include_tasks: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
+    - name: Start MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: true
 
-- ansible.builtin.include_tasks: setup-Archlinux.yml
-  when: ansible_os_family == 'Archlinux'
+    - name: Secure MySQL installation
+      mysql_user:
+        name: root
+        password: admin  # Replace with your desired root password
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        host_all: true
+        check_implicit_admin: yes
+        check_implicit_admin_with_grants: yes
+        login_user: root
+        login_password: admin
+        login_host: localhost
 
-- name: Check if MySQL packages were installed.
-  ansible.builtin.set_fact:
-    mysql_install_packages: "{{ (rh_mysql_install_packages is defined and rh_mysql_install_packages.changed)
-      or (deb_mysql_install_packages is defined and deb_mysql_install_packages.changed)
-      or (arch_mysql_install_packages is defined and arch_mysql_install_packages.changed) }}"
+    - name: Create a database
+      mysql_db:
+        name: tooling
+        state: present
+        login_user: root
+        login_password: admin
 
-# Configure MySQL.
-- ansible.builtin.include_tasks: configure.yml
-- ansible.builtin.include_tasks: secure-installation.yml
-- ansible.builtin.include_tasks: databases.yml
-- ansible.builtin.include_tasks: users.yml
-- ansible.builtin.include_tasks: replication.yml
+    - name: Create a MySQL user
+      mysql_user:
+        name: webaccess
+        password: mypass
+        priv: "*.*:ALL"
+        host: localhost
+        login_user: root
+        login_password: admin
