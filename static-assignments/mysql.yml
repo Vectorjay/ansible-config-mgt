@@ -15,24 +15,61 @@
         state: started
         enabled: true
 
-    - name: Secure MySQL installation
+- name: Secure MySQL installation
+  hosts: localhost
+  become: yes
+
+  vars:
+    mysql_root_password: your_desired_root_password
+
+  tasks:
+    - name: Set root password
       mysql_user:
         name: root
-        password: admin  # Replace with your desired root password
+        password: "{{ mysql_root_password }}"
         login_unix_socket: /var/run/mysqld/mysqld.sock
-        host_all: true
-        check_implicit_admin: yes
-        check_implicit_admin_with_grants: yes
+        host_all: yes
         login_user: root
-        login_password: admin
+        login_password: ""
         login_host: localhost
+        state: present
+
+    - name: Reload privilege tables
+      mysql_user:
+        name: root
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        login_host: localhost
+        priv: "*.*:ALL,GRANT"
+        state: present
+        append_privs: yes
+
+    - name: Remove anonymous user accounts
+      mysql_user:
+        name: ""
+        host_all: yes
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        login_host: localhost
+        state: absent
+
+    - name: Remove test database
+      mysql_db:
+        name: test
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        login_host: localhost
+        state: absent
 
     - name: Create a database
       mysql_db:
         name: tooling
         state: present
         login_user: root
-        login_password: admin
+        login_password: "{{ mysql_root_password }}"
 
     - name: Create a MySQL user
       mysql_user:
@@ -41,4 +78,4 @@
         priv: "*.*:ALL"
         host: localhost
         login_user: root
-        login_password: admin
+        login_password: "{{ mysql_root_password }}"
