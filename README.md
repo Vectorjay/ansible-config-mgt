@@ -1,6 +1,6 @@
 # ansible-config-mgt
 ## We are at it again!!
-#### Jenkins pipeline sytax ####
+#### Jenkins pipeline sytax #####
 =========================================
 pipeline {
   agent any
