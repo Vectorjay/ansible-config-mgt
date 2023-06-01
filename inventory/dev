@@ -1,5 +1,5 @@
 [apache]
 172.31.92.181 ansible_user=ec2-user
 
-[db]
-172.31.95.62 ansible_user=ubuntu
+[nginx]
+172.31.88.233 ansible_user=ec2-user
