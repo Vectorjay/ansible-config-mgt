@@ -1,57 +1,22 @@
 ---
-- name: Install and configure Nginx with PHP
-  hosts: localhost
-  become: true
-  tasks:
-    - name: Install EPEL repository
-      yum:
-        name: epel-release
-        state: present
-    
-    - name: Install Nginx
-      yum:
-        name: nginx
-        state: present
-    
-    - name: Install PHP and required modules
-      yum:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - php
-        - php-fpm
-        - php-mysqlnd
-        - php-gd
-        - php-xml
-        # Add any additional PHP modules as needed
-    
-    - name: Configure PHP-FPM
-      template:
-        src: php-fpm.conf.j2
-        dest: /etc/php-fpm.d/www.conf
-        owner: root
-        group: root
-        mode: '0644'
-      notify:
-        - Restart PHP-FPM
-    
-    - name: Configure Nginx
-      template:
-        src: nginx.conf.j2
-        dest: /etc/nginx/nginx.conf
-        owner: root
-        group: root
-        mode: '0644'
-      notify:
-        - Restart Nginx
+# tasks file for nginx
+- name: install nginx on the webserver
+  ansible.builtin.yum:
+      name: nginx
+      state: present
 
-  handlers:
-    - name: Restart PHP-FPM
-      service:
-        name: php-fpm
-        state: restarted
-    
-    - name: Restart Nginx
-      service:
-        name: nginx
-        state: restarted
+
+- name: ensure nginx is started and enabled
+  ansible.builtin.service:
+     name: nginx
+     state: started 
+     enabled: yes
+
+- name: install PHP
+  ansible.builtin.yum:
+    name:
+      - php 
+      - php-mysqlnd
+      - php-gd 
+      - php-curl
+    state: present
