@@ -140,13 +140,3 @@ mysql_replication_role: ''
 mysql_replication_master: ''
 # Same keys as `mysql_users` above.
 mysql_replication_user: []
-
-- name: Set MySQL bind address
-  become: true
-  ansible.builtin.lineinfile:
-    path: /etc/mysql/mysql.conf.d
-    regexp: '^bind-address'
-    line: 'bind-address = 0.0.0.0'
-    state: present
-    backup: yes
-  notify: restart mysql
