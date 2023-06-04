@@ -53,7 +53,7 @@
         url: http://34.195.171.67:8082/artifactory/vector/php-todo
         dest: /home/ec2-user/
         url_username: admin
-        url_password: Passw0rd1966  
+        url_password: cmVmdGtuOjAxOjE3MTc0MjU2OTA6Rkl6QXdiVGxielFMNVc2blZ5NzZIN0xmOVk3  
 
     - name: unzip the artifacts
       ansible.builtin.unarchive:
