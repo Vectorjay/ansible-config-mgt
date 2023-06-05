@@ -6,3 +6,6 @@
 
 [db]
 172.31.19.99 ansible_user=ubuntu
+
+[todo]
+172.31.81.230 ansible_user=ec2-user
