@@ -56,6 +56,6 @@
 
 - name: create a service file
   ansible.builtin.template:
-    src: templates/sonarqube.service.j2
+    src: templates/sonar.service.j2
     dest:  /etc/systemd/system/sonar.service
     force: yes
