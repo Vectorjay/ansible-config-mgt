@@ -34,7 +34,7 @@ sonar.web.host={{ sonar_web_host | default('0.0.0.0') }}
 {% if (sonar_web_context is defined) and (sonar_web_context | length > 0) %}
 sonar.web.context={{ sonar_web_context }}
 {% endif %}
-sonar.web.port={{ sonar_web_port | default('9091') }}
+sonar.web.port={{ sonar_web_port | default('9000') }}
 sonar.web.http.maxThreads={{ sonar_web_http_max_threads | default('50') }}
 sonar.web.http.minThreads={{ sonar_web_http_min_threads | default('5') }}
 sonar.web.http.acceptCount={{ sonar_web_http_accept_count | default('25') }}
