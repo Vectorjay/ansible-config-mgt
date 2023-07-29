@@ -1,6 +1,6 @@
 ---
 - name: Install MySQL server
-  hosts: your_mysql_servers
+  hosts: 172.31.83.154
   become: true  # To run tasks with root (sudo) privileges
 
   tasks:
