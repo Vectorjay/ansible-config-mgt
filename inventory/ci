@@ -11,5 +11,7 @@
 172.31.85.0 ansible_ssh_user=ec2-user
 
 
-[db]
-<db-Private-IP-Address>
+[database]
+172.31.83.154 ansible_ssh_user=ubuntu
+
+
