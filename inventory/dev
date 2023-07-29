@@ -4,8 +4,8 @@
 [nginx]
 172.31.88.233 ansible_user=ec2-user
 
-#[db]
-#172.31.19.99 ansible_user=ubuntu
+[db]
+<172.31.19.99 ansible_user=ubuntu>
 
 [todo]
 172.31.81.230 ansible_user=ec2-user
