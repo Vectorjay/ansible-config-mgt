@@ -6,7 +6,7 @@
   tasks:
     - name: Install MySQL server package
       apt:
-        name: mysql-server  # Replace with the appropriate package name for your Linux distribution
+        name: ubuntu  # Replace with the appropriate package name for your Linux distribution
         state: present
       # You can use "yum" instead of "apt" for Red Hat-based systems
 
