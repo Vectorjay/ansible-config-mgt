@@ -35,24 +35,10 @@
     state: absent
 
 # - name: add user to run sonar
-#   ansible.builtin.shell: useradd -c "user to run SonarQube" -d /opt/sonarqube -g sonar sonar
-- name: Check if SonarQube user exists
-  ansible.builtin.shell: getent passwd sonar
-  register: sonar_user
-  ignore_errors: yes
+#   ansible.builtin.shell: useradd -c "user to run SonarQube" -d /opt/sonarqube -g sonar sonar 
 
-- name: Create SonarQube user
-  ansible.builtin.user:
-    name: sonar
-    comment: "User to run SonarQube"
-    home: /opt/sonarqube
-    group: sonar
-    createhome: yes
-  when: sonar_user.rc != 0
-
-
-- name: change ownership
-  ansible.builtin.shell: chown sonar:sonar /opt/sonarqube -R
+# - name: change ownership
+#   ansible.builtin.shell: chown sonar:sonar /opt/sonarqube -R
     
 - name: Configuring the SonarQube Server
   ansible.builtin.template:
